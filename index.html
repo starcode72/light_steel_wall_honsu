@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #app {
+        background-image: url(./images/Concrete-wall-texture04.jpg);
+        background-size: cover;
+        background-position: center;
+        margin: 0 auto;
+        width: clamp(500px, 600px, 100%);
+      }
+      body {
+        font-family: "Helvetica Neue", "Helvetica", "Arial",
+          "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+      }
+      p {
+        font-size: 100px;
+        font-weight: 900;
+        margin: 0;
+      }
+      span {
+        text-align: right;
+        margin: 10px;
+        margin-left: auto;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <h4>横幅 width: {{ width||"0" }}ｍ</h4>
+      <input
+        v-model.number="width"
+        type="number"
+        name="width"
+        placeholder="例 5.5"
+        step="0.1"
+      />
+      <h4>高さ height: {{ height||"0" }}ｍ</h4>
+      <input
+        v-model.number="height"
+        type="number"
+        placeholder="例 2.5"
+        step="0.1"
+      />
+      <h1>面積: {{ area }}㎡</h1>
+      <hr />
+      <select v-model="selected" name="" id="">
+        <option value="">製品の長さを選択してください</option>
+        <option value="2">2m</option>
+        <option value="2.5">2.5m</option>
+        <option value="3">3m</option>
+        <option value="3.5">3.5m</option>
+        <option value="4">4m</option>
+        <option value="4.5">4.5m</option>
+        <option value="5">5m</option>
+      </select>
+      <h2>↑製品の長さを選択してください</h2>
+      <h2>【ランナー】ロス率10%</h2>
+      <h1>製品: {{ selected||"0" }}m</h1>
+      <h1>上下: {{ double }}m</h1>
+      <h1>本数: {{ linerTen||"0" }}本 ({{liner||"0"}})</h1>
+      <hr />
+      <h2>【スタット】ロス率10%</h2>
+      <h1>455ピッチ: {{ st455ten }}本 ({{ st455 }})</h1>
+      <h1>303ピッチ: {{ st303ten }}本 ({{ st303 }})</h1>
+      <hr />
+      <h2>【スペーサー455ピッチ】</h2>
+      <h1>{{ spacer455 }} 個</h1>
+      <h2>【スペーサー303ピッチ】</h2>
+      <h1>{{ spacer303 }} 個</h1>
+      <h1>横桟{{ yoko }}m</h1>
+      <h2>【チャンネル】</h2>
+      <h1>{{ yokoyoko||"0"}}本</h1>
+      <h6>※横桟はランナー製品と同じ長さでの本数計算です</h6>
+      <h6>(数値)はロス率0%の場合の本数です</h6>
+      <h6>
+        ※
+        数量は状況により異なりますので目安としてお使いいただき適宜調整してください
+      </h6>
+      <h6>※ 数値の入力は半角数字です</h6>
+      <p>ほんすー</p>
+      <span>produced by yut</span>
+      <hr />
+
+      <h5>※ 開口周辺の材料数は状況により変わりますので合計値には含まれません</h5>
+      <h5>※ こちらは4方枠の場合の目安が計算できますので適宜合計値に足す形で使用してください</h5>
+      <h5>※ 全体の面積を入力していないと開口面積は正しく計算されません</h5>
+      <h4>開口横幅 open-width: {{ openWidth||"0" }}ｍ</h4>
+      <input
+        v-model.number="openWidth"
+        type="number"
+        placeholder="例 5.5"
+        step="0.1"
+      />
+      <h4>開口高さ open-height: {{ openHeight||"0" }}ｍ</h4>
+      <input
+        v-model.number="openHeight"
+        type="number"
+        placeholder="例 2.5"
+        step="0.1"
+      />
+
+      <h1>開口面積: {{ openArea }}㎡</h1>
+
+      <h1>面積-開口面積={{ totalArea }}㎡</h1>
+
+      <h1>開口用追加ランナー: {{ linerOpen }} 本</h1>
+      <h1>開口用ライトゲージ(横):{{ lightGaugeOpenWidth }}本</h1>
+      <h1>開口用ライトゲージ(縦):{{ lightGaugeOpenHeight }}本</h1>
+      <h1>追加スタット@455:{{ extraSt455 }}本</h1>
+      <h1>追加スタット@303:{{ extraSt303 }}本</h1>
+
+
+      <!-- <h1>減算スタット@455: {{ reduceSt455 }}本</h1>
+      <h1>まぐさスタット長さ: {{ magusaStMeter }}mm</h1>
+      <h1>まぐさスタットピッチ割必要本数: {{ magusaStCount455 }}本</h1>
+      <h1>まぐさスタット合計長: {{ magusaStTotalMeter }}mm</h1>
+      <h1>まぐさ用スタット本数: {{ magusaSt455 }}本</h1>
+
+      <h1>減算スタット@303: {{ reduceSt303 }}本</h1>
+      <h1>まぐさスタット長さ: {{ magusaStMeter }}mm</h1>
+      <h1>まぐさスタットピッチ割必要本数: {{ magusaStCount303 }}本</h1>
+      <h1>まぐさスタット合計長: {{ magusaStTotalMeter }}mm</h1>
+      <h1>まぐさ用スタット本数: {{ magusaSt303 }}本</h1> -->
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            width: "",
+            height: "",
+            selected: "",
+            openWidth: "",
+            openHeight: "",
+          };
+        },
+        computed: {
+          area() {
+            return this.width * this.height;
+          },
+          double() {
+            return this.width * 2;
+          },
+          liner() {
+            return Math.ceil((this.width * 2) / this.selected);
+          },
+          linerTen() {
+            return Math.ceil(this.liner * 1.1);
+          },
+          st455() {
+            return Math.ceil((this.width / 455) * 1000);
+          },
+          st303() {
+            return Math.ceil((this.width / 303) * 1000);
+          },
+          st455ten() {
+            return Math.ceil(this.st455 * 1.1);
+          },
+          st303ten() {
+            return Math.ceil(this.st303 * 1.1);
+          },
+          spacer455() {
+            return Math.ceil(
+              this.st455ten * 2 + (this.height / 600) * this.st455ten * 1000
+            );
+          },
+          spacer303() {
+            return Math.ceil(
+              this.st303ten * 2 + (this.height / 600) * this.st303ten * 1000
+            );
+          },
+          yoko() {
+            return Math.ceil((this.height / 1.2) * this.width);
+          },
+          yokoyoko() {
+            return Math.ceil(this.yoko / this.selected);
+          },
+          openArea() {
+            return this.openWidth * this.openHeight;
+          },
+          totalArea() {
+            return this.area - this.openArea;
+          },
+          linerOpen() {
+            return Math.ceil((this.openWidth * 2) / this.selected);
+          },
+          lightGaugeOpenWidth() {
+            return Math.ceil((this.openWidth * 2) / this.selected);
+          },
+          lightGaugeOpenHeight() {
+            return 2;
+          },
+          reduceSt303() {
+            return Math.ceil((this.openWidth / 303) * 1000);
+          },
+          reduceSt455() {
+            return Math.ceil((this.openWidth / 455) * 1000);
+          },
+          magusaStMeter() {
+            return Math.ceil((this.height - this.openHeight)) * 1000;
+          },
+          magusaStCount303() {
+            return Math.ceil((this.openWidth / 303) * 1000) + 2;
+          },
+          magusaStCount455() {
+            return Math.ceil((this.openWidth / 455) * 1000) + 2;
+          },
+          magusaStTotalMeter() {
+            return Math.ceil(this.magusaStMeter * this.magusaStCount303);
+          },
+          magusaStTotalMeter() {
+            return Math.ceil(this.magusaStMeter * this.magusaStCount455);
+          },
+          magusaSt303() {
+            return Math.ceil(this.magusaStTotalMeter / (this.height * 1000))
+          },
+          magusaSt455() {
+            return Math.ceil(this.magusaStTotalMeter / (this.height * 1000))
+          },
+          extraSt303() {
+            return Math.ceil(this.reduceSt303 - this.magusaSt303)
+          },
+          extraSt455() {
+            return Math.ceil(this.reduceSt455 - this.magusaSt455)
+          }
+        },
+      });
+      app.mount("#app");
+    </script>
+  </body>
+</html>
